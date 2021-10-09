@@ -1,20 +1,35 @@
 import type { RoutesStore } from '@src/configs/routes';
+import { setState } from './observer';
 
 type ValueOf<T> = T[keyof T];
 
 export default class Router {
   private routes: RoutesStore;
+  public pageState: string;
+  public setPage: (args: any) => void;
 
-  constructor(routes: RoutesStore) {
+  constructor(routes: RoutesStore, pageState: string) {
     this.routes = routes;
+    this.pageState = pageState;
+    this.setPage = setState(pageState);
   }
 
-  init(el: HTMLElement) {
+  init() {
+    this.handlePopState();
+    window.addEventListener('popstate', this.handlePopState.bind(this));
+  }
+
+  handlePopState() {
     const { pathname } = location;
-    this.renderHTML(el, this.routes[pathname]);
-    window.addEventListener('popstate', () =>
-      this.renderHTML(el, this.routes[pathname])
-    );
+    let Page;
+    for (const [routePath, component] of Object.entries(this.routes)) {
+      if (routePath === pathname) {
+        Page = component;
+        break;
+      }
+    }
+    if (!Page) Page = this.routes['/error'];
+    this.setPage({ CurrentPage: Page });
   }
 
   push(el: HTMLElement, pathName: string, query: string = '') {
