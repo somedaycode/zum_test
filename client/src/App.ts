@@ -1,3 +1,4 @@
+import Header from './components/common/Header';
 import Component from './core/Component';
 import { getState } from './lib/observer';
 import { pageStore } from './store/pages';
@@ -11,12 +12,17 @@ export default class App extends Component {
     this.subscribe();
   }
   htmlTemplate() {
-    return '<div class="pageContainer"></div>';
+    return `
+    <header class="page__header"></header>
+    <div class="page-container"></div>
+    `;
   }
 
   mountChildComponent() {
-    const $pageContainer = _.$('.pageContainer', this.$target);
+    const $pageContainer = _.$('.page-container', this.$target);
+    const $header = _.$('.page__header', this.$target);
     const { CurrentPage } = getState(pageStore);
     new CurrentPage($pageContainer);
+    new Header($header);
   }
 }
