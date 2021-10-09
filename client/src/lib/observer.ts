@@ -9,8 +9,15 @@ type InitState<T> = {
 
 const globalState: GlobalStateType = {};
 
-const subscribe = (key: string, componentId: string, observer: Function) =>
-  globalState[key]._observers.set(componentId, observer);
+const subscribe = (
+  key: string,
+  componentId: string | null,
+  observer: Function
+) => {
+  if (typeof componentId === 'string') {
+    globalState[key]._observers.set(componentId, observer);
+  } else throw Error('check your componentId');
+};
 
 const _notify = (key: string) =>
   globalState[key]._observers.forEach((observer: Function) => observer());

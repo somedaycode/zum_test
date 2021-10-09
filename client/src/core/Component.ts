@@ -4,11 +4,11 @@ export default class Component<T = void> {
   public $target: HTMLElement;
   public props: T;
   public keys: string[];
-  public componentId: string;
+  public componentId: string | null;
 
-  constructor($target: HTMLElement, componentId: string, props: T) {
+  constructor($target: HTMLElement, props: T) {
     this.$target = $target;
-    this.componentId = componentId;
+    this.componentId = null;
     this.props = props;
     this.keys = [];
     this.init();
@@ -31,9 +31,11 @@ export default class Component<T = void> {
   mountChildComponent() {}
 
   subscribe() {
-    this.keys.forEach((key) =>
-      subscribe(key, this.componentId, this.render.bind(this))
-    );
+    if (this.componentId) {
+      this.keys.forEach((key) =>
+        subscribe(key, this.componentId, this.render.bind(this))
+      );
+    }
   }
 
   render() {
