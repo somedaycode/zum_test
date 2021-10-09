@@ -12,6 +12,7 @@ export default class Router {
     this.routes = routes;
     this.pageState = pageState;
     this.setPage = setState(pageState);
+    this.init();
   }
 
   init() {
