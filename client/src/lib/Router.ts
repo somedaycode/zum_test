@@ -1,22 +1,11 @@
-import ErrorPage from '@src/pages/ErrorPage';
-import HomePage from '@src/pages/HomePage';
-
-type RoutesStore = {
-  '/': typeof HomePage;
-  '/error': typeof ErrorPage;
-};
-
-type Routes = {
-  routes: RoutesStore;
-  [key: string]: any;
-};
+import type { RoutesStore } from '@src/configs/routes';
 
 type ValueOf<T> = T[keyof T];
 
 export default class Router {
-  private routes: Routes;
+  private routes: RoutesStore;
 
-  constructor(routes: Routes) {
+  constructor(routes: RoutesStore) {
     this.routes = routes;
   }
 
