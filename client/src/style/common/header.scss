@@ -5,6 +5,7 @@
   top: 0;
   position: sticky;
   background-color: $main-background;
+  z-index: $z-index-s;
 }
 
 .header-wrap {
