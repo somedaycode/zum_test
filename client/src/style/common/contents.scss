@@ -56,11 +56,9 @@
   }
 
   .favorite-btn {
-    width: 2rem;
-    height: 2rem;
     position: absolute;
     top: 0;
-    right: 1rem;
-    background: $primary-blue;
+    right: 0;
+    background: transparent;
   }
 }
