@@ -4,7 +4,7 @@ const request = async (url: string, option = {}) => {
     const data = await res.json();
     return data;
   } catch (e: any) {
-    throw new Error('에러!!');
+    throw new Error('데이터를 가져오는 데 실패하였습니다.');
   }
 };
 
