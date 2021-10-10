@@ -21,7 +21,7 @@ export default class Header extends Component {
       <nav class="nav-container">
         <ul class="menu-container">
           ${menuList
-            .map((menu) => `<li class="menu__list">${menu}</li>`)
+            .map((menu) => `<li class="menu__list" tabindex="0">${menu}</li>`)
             .join('')}
         </ul>
       </nav>
