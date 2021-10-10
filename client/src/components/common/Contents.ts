@@ -6,7 +6,7 @@ import type { ContentsState } from '@src/store/contents';
 export default class Contents extends Component<ContentsState> {
   htmlTemplate() {
     const { isLoading, title: categoryTitle, data } = this.props;
-    if (isLoading) return '<div>loading...<div>';
+    if (isLoading) return '<div class="loading-spinner"><div>';
 
     return `
     <div>
