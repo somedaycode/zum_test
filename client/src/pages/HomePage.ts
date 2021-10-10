@@ -1,4 +1,6 @@
+import Rankings from '@src/components/home/Rankings';
 import Component from '@src/core/Component';
+import { _ } from '@src/utils/myUtils';
 
 export default class HomePage extends Component {
   htmlTemplate() {
@@ -8,5 +10,10 @@ export default class HomePage extends Component {
         <section class="rankings-wrap"></section>
       </main>
       `;
+  }
+
+  mountChildComponent() {
+    const $rankings = _.$('.rankings-wrap', this.$target);
+    new Rankings($rankings);
   }
 }
