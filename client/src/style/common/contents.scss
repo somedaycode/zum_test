@@ -16,6 +16,17 @@
   width: 25%;
   margin-bottom: $margin-m;
   padding: $padding-m;
+  cursor: pointer;
+
+  &:hover {
+    h3 {
+      color: $secondary-blue;
+    }
+
+    img {
+      filter: opacity(0.6) drop-shadow(0 0 0 black);
+    }
+  }
 }
 
 .contents__img {
