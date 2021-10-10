@@ -5,6 +5,7 @@ export default class Header extends Component {
     const menuList = ['홈', '라이프', '푸드', '여행', '컬쳐', '즐겨찾기'];
 
     return `
+    <div class="header-wrap">
       <div class="header-top">
         <h1 class="header-title">
           허브
@@ -24,6 +25,7 @@ export default class Header extends Component {
             .join('')}
         </ul>
       </nav>
+    </div>
     `;
   }
 }
