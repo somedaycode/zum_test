@@ -1,20 +1,32 @@
 import Component from '@src/core/Component';
+import type { ContentsState } from '@src/store/contents';
 
-export default class Contents extends Component {
+//<i class="fas fa-heart"></i> solid
+
+export default class Contents extends Component<ContentsState> {
   htmlTemplate() {
+    const { isLoading, title: categoryTitle, data } = this.props;
+    if (isLoading) return '<div>loading...<div>';
+
     return `
     <div>
-      <h2 class="contents-category-title">#라이프</h2>
+      <h2 class="contents-category-title">${categoryTitle}</h2>
       <ul class="contents-container">
-        <li class="contents-card">
-          <img class="contents__img" src="https://thumb.zumst.com/270x200/https://static.hubzum.zumst.com/hubzum/2021/03/24/13/f9ea2c54c3264be795d6126be3e2b955.jpg" alt="콘텐츠">
+        ${data
+          .map(
+            ({ idx, mediaName, title, summaryContent, url, imageUrl }) => `
+        <li class="contents-card" data-id=${idx} data-url=${url}>
+          <img class="contents__img" src=${imageUrl} alt="콘텐츠">
           <div class="text-wrap">
-            <h3 class="card-title">어쩌구 저쩌구 쏼라어쩌구 저쩌구 쏼라쏼라어쩌구 저쩌구 쏼라쏼라어쩌구 저쩌구 쏼라쏼라쏼라</h3>
-            <p class="card-description">쏼라쏼라라라라어쩌구 저쩌구 쏼라쏼라어쩌구 저쩌구 쏼라쏼라어쩌구 저쩌구 쏼라쏼라어쩌구 저쩌구 쏼라쏼라어쩌구 저쩌구 쏼라쏼라라</p>
-            <span class="card-media">작가머시기<span>
-            <button class="favorite-btn"></button>
+            <h3 class="card-title">${title}</h3>
+            <p class="card-description">${summaryContent}</p>
+            <span class="card-media">${mediaName}<span>
+            <button class="favorite-btn" aria-label="즐겨찾기"><i class="far fa-heart fa-2x"></i></button>
           </div>
         </li>
+        `
+          )
+          .join('')}
       </ul>
     </div>     
     `;
