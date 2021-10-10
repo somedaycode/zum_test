@@ -1,8 +1,9 @@
-import Header from './components/common/Header';
 import Component from './core/Component';
 import { getState } from './lib/observer';
 import { pageStore } from './store/pages';
 import { _ } from './utils/myUtils';
+
+import Header from './components/common/Header';
 
 export default class App extends Component {
   constructor($target: HTMLDivElement) {
