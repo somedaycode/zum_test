@@ -17,24 +17,24 @@ export type HubContent = {
 
 export type HomeContents = HubContent[];
 
-const lifeData = initState({
+const lifesData = initState({
   key: 'lifeData',
   value: { isLoading: true, title: '라이프', data: [] },
 });
 
-const cultureData = initState({
+const culturesData = initState({
   key: 'cultureData',
   value: { isLoading: true, title: '컬쳐', data: [] },
 });
 
-const foodData = initState({
+const foodsData = initState({
   key: 'foodData',
   value: { isLoading: true, title: '푸드', data: [] },
 });
 
-const travelData = initState({
+const travelsData = initState({
   key: 'travelData',
   value: { isLoading: true, title: '여행', data: [] },
 });
 
-export { lifeData, cultureData, foodData, travelData };
+export { lifesData, culturesData, foodsData, travelsData };

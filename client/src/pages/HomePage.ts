@@ -3,10 +3,10 @@ import { getState, setState } from '@src/lib/observer';
 import { _ } from '@src/utils/myUtils';
 
 import {
-  cultureData,
-  foodData,
-  lifeData,
-  travelData,
+  culturesData,
+  foodsData,
+  lifesData,
+  travelsData,
 } from '@src/store/contents';
 import type { ContentsState } from '@src/store/contents';
 
@@ -20,7 +20,7 @@ export default class HomePage extends Component {
   constructor($target: HTMLDivElement) {
     super($target);
     this.componentId = 'HomePage';
-    this.keys = [lifeData, cultureData, foodData, travelData];
+    this.keys = [lifesData, culturesData, foodsData, travelsData];
     this.subscribe();
   }
   htmlTemplate() {
