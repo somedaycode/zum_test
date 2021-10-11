@@ -1,9 +1,10 @@
 import { initState } from '@src/lib/observer';
 
 export type ContentsState = {
-  isLoading: boolean;
   title: string;
   data: HubContent[];
+  page?: number;
+  isLoading?: boolean;
 };
 
 export type HubContent = {
@@ -19,22 +20,22 @@ export type HomeContents = HubContent[];
 
 const lifesData = initState({
   key: 'lifeData',
-  value: { isLoading: true, title: '라이프', data: [] },
+  value: { isLoading: true, title: '라이프', data: [], page: 1 },
 });
 
 const culturesData = initState({
   key: 'cultureData',
-  value: { isLoading: true, title: '컬쳐', data: [] },
+  value: { isLoading: true, title: '컬쳐', data: [], page: 1 },
 });
 
 const foodsData = initState({
   key: 'foodData',
-  value: { isLoading: true, title: '푸드', data: [] },
+  value: { isLoading: true, title: '푸드', data: [], page: 1 },
 });
 
 const travelsData = initState({
   key: 'travelData',
-  value: { isLoading: true, title: '여행', data: [] },
+  value: { isLoading: true, title: '여행', data: [], page: 1 },
 });
 
 export { lifesData, culturesData, foodsData, travelsData };
