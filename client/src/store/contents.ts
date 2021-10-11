@@ -15,6 +15,8 @@ export type HubContent = {
   imageUrl: String;
 };
 
+export type HomeContents = HubContent[];
+
 const lifeData = initState({
   key: 'lifeData',
   value: { isLoading: true, title: '라이프', data: [] },
@@ -27,7 +29,7 @@ const cultureData = initState({
 
 const foodData = initState({
   key: 'foodData',
-  value: { isLoading: true, title: '음식', data: [] },
+  value: { isLoading: true, title: '푸드', data: [] },
 });
 
 const travelData = initState({
