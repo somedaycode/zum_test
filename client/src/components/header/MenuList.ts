@@ -1,4 +1,6 @@
 import Component from '@src/core/Component';
+import { _ } from '@src/utils/myUtils';
+import { router } from '../../../index';
 
 export default class MenuList extends Component {
   htmlTemplate() {
@@ -15,10 +17,22 @@ export default class MenuList extends Component {
       ${menuList
         .map(
           ({ title, path }) =>
-            `<li class="menu__list" data-path=${path} tabindex="0">${title}</li>`
+            `<li class="menu__list" data-param=${path} tabindex="0">${title}</li>`
         )
         .join('')}
     </ul>
     `;
+  }
+
+  setEvent() {
+    _.on(this.$target, 'click', this.handleClickHeaderMenu.bind(this));
+  }
+
+  handleClickHeaderMenu(e: MouseEvent) {
+    const target = e.target as HTMLUListElement;
+    if (target.closest('.menu__list')) {
+      const param = target.dataset.param;
+      router.push('/content', param);
+    }
   }
 }
