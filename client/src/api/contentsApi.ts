@@ -24,8 +24,8 @@ const getAllContents = async () => {
   const data = await Promise.all([
     request('/api/content/lifes'),
     request('/api/content/cultures'),
-    request('/api/content/travels'),
     request('/api/content/foods'),
+    request('/api/content/travels'),
   ]);
   return data;
 };
