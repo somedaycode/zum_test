@@ -3,8 +3,14 @@ const app = express();
 const path = require('path');
 const port = 3000;
 
+const content = require('./src/api/content');
+const best = require('./src/api/best');
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.use('/api/content', content);
+app.use('/api/best', best);
 
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: '../client/build' });
