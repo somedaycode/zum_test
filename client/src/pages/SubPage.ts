@@ -37,14 +37,14 @@ export default class SubPage extends Component {
   }
 
   async initializeState() {
-    const contents = this.getCurrentSubPageStore();
-    if (contents.length > 0) return;
+    const { data } = this.getCurrentSubPageStore();
+    if (data.length > 0) return;
 
     const path = location.pathname.replace('/', '');
     const contentsData = await request(`/api/content/${path}`);
 
     const storeKey = this.getStoreKey();
-    const currentData = getState<HubContent[]>(storeKey);
+    const currentData = getState<ContentsState>(storeKey);
     const setContents = setState(storeKey);
     setContents({
       ...currentData,
@@ -55,19 +55,35 @@ export default class SubPage extends Component {
 
   mountChildComponent() {
     const $contentsWrap = _.$('.contents-wrap', this.$target);
-    const contents = this.getCurrentSubPageStore();
-    new ContentsWrap($contentsWrap, contents);
+    const { data, page } = this.getCurrentSubPageStore();
+
+    if (!page) return;
+    new ContentsWrap($contentsWrap, {
+      setContent: this.setStoreContents.bind(this),
+      data,
+      page,
+    });
   }
 
   getCurrentSubPageStore() {
     const storeKey = this.getStoreKey();
-    const { data } = getState<ContentsState>(storeKey);
-    return data;
+    const { data, page } = getState<ContentsState>(storeKey);
+    return { data, page };
   }
 
   getStoreKey() {
     const currentKey = `${location.pathname.replace('/', '')}Data`;
     const store: StoreKey = { culturesData, foodsData, lifesData, travelsData };
     return store[currentKey];
+  }
+
+  setStoreContents(page: number) {
+    const storeKey = this.getStoreKey();
+    const currentData = getState<ContentsState>(storeKey);
+    const setContents = setState(storeKey);
+    setContents({
+      ...currentData,
+      page,
+    });
   }
 }
