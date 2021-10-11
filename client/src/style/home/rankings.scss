@@ -11,13 +11,15 @@
 
 .ranking-container {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   width: 100%;
 }
 
 .ranking__list {
   margin: 0 1px 1px 0;
   padding: $padding-m;
-  width: 25%;
+  width: 24%;
   background-color: $secondary-gray;
   position: relative;
 }
@@ -44,8 +46,8 @@
 
 .rank-number {
   top: 1rem;
-  left: 1rem;
-  font-size: 2rem;
+  left: 0.5rem;
+  font-size: $font-size-m;
   color: $secondary-blue;
   position: absolute;
 }
