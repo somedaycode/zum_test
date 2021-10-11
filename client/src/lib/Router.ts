@@ -33,8 +33,8 @@ export default class Router {
     this.setPage({ CurrentPage: Page });
   }
 
-  push(pathName: string, query: string = '') {
-    history.pushState({}, pathName, `${location.origin}${pathName}/${query}`);
+  push(pathName: string) {
+    history.pushState({}, pathName, `${location.origin}${pathName}`);
     this.handlePopState();
   }
 
