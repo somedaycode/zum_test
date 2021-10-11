@@ -7,6 +7,7 @@ export default class MenuList extends Component {
     const menuList = [
       { title: '홈', path: 'home' },
       { title: '라이프', path: 'lifes' },
+      { title: '컬처', path: 'cultures' },
       { title: '푸드', path: 'foods' },
       { title: '여행', path: 'travels' },
       { title: '즐겨찾기', path: 'favorites' },
@@ -17,7 +18,7 @@ export default class MenuList extends Component {
       ${menuList
         .map(
           ({ title, path }) =>
-            `<li class="menu__list" data-param=${path} tabindex="0">${title}</li>`
+            `<li class="menu__list" data-path=${path} tabindex="0">${title}</li>`
         )
         .join('')}
     </ul>
@@ -31,8 +32,9 @@ export default class MenuList extends Component {
   handleClickHeaderMenu(e: MouseEvent) {
     const target = e.target as HTMLUListElement;
     if (target.closest('.menu__list')) {
-      const param = target.dataset.param;
-      router.push('/content', param);
+      const path = target.dataset.path;
+      if (path === 'home') router.push(`/`);
+      else if (path) router.push(`/${path}`);
     }
   }
 }
