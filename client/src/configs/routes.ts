@@ -1,25 +1,22 @@
-import CulturePage from '@src/pages/CulturePage';
 import ErrorPage from '@src/pages/ErrorPage';
-import FoodPage from '@src/pages/FoodPage';
 import HomePage from '@src/pages/HomePage';
-import LifePage from '@src/pages/LifePage';
-import TravelPage from '@src/pages/TravelPage';
+import SubPage from '@src/pages/SubPage';
 
 export type RoutesStore = {
   '/': typeof HomePage;
-  '/lifes': typeof LifePage;
-  '/travels': typeof TravelPage;
-  '/foods': typeof FoodPage;
-  '/cultures': typeof CulturePage;
+  '/lifes': typeof SubPage;
+  '/travels': typeof SubPage;
+  '/foods': typeof SubPage;
+  '/cultures': typeof SubPage;
   '/error': typeof ErrorPage;
   [key: string]: any;
 };
 
 export const routesConfig: RoutesStore = {
   '/': HomePage,
-  '/lifes': LifePage,
-  '/travels': TravelPage,
-  '/foods': FoodPage,
-  '/cultures': CulturePage,
+  '/lifes': SubPage,
+  '/travels': SubPage,
+  '/foods': SubPage,
+  '/cultures': SubPage,
   '/error': ErrorPage,
 };
