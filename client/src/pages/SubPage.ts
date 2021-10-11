@@ -4,11 +4,13 @@ import { _ } from '@src/utils/myUtils';
 import {
   culturesData,
   foodsData,
+  HubContent,
   lifesData,
   travelsData,
 } from '@src/store/contents';
 import type { ContentsState } from '@src/store/contents';
-import { getState } from '@src/lib/observer';
+import { getState, setState } from '@src/lib/observer';
+import { request } from '@src/utils/request';
 
 type StoreKey = {
   culturesData: string;
@@ -37,6 +39,18 @@ export default class SubPage extends Component {
   async initializeState() {
     const contents = this.getCurrentSubPageStore();
     if (contents.length > 0) return;
+
+    const path = location.pathname.replace('/', '');
+    const contentsData = await request(`/api/content/${path}`);
+
+    const storeKey = this.getStoreKey();
+    const currentData = getState<HubContent[]>(storeKey);
+    const setContents = setState(storeKey);
+    setContents({
+      ...currentData,
+      data: contentsData,
+      page: 1,
+    });
   }
 
   mountChildComponent() {
@@ -46,10 +60,14 @@ export default class SubPage extends Component {
   }
 
   getCurrentSubPageStore() {
-    const currentKey = `${location.pathname.replace('/', '')}Data`;
-    const store: StoreKey = { culturesData, foodsData, lifesData, travelsData };
-    const storeKey = store[currentKey];
+    const storeKey = this.getStoreKey();
     const { data } = getState<ContentsState>(storeKey);
     return data;
+  }
+
+  getStoreKey() {
+    const currentKey = `${location.pathname.replace('/', '')}Data`;
+    const store: StoreKey = { culturesData, foodsData, lifesData, travelsData };
+    return store[currentKey];
   }
 }
