@@ -22,6 +22,4 @@ export default class Header extends Component {
     const $navContainer = _.$('.nav-container', this.$target);
     new MenuList($navContainer);
   }
-
-  setEvent() {}
 }
