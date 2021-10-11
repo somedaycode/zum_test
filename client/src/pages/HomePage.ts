@@ -23,6 +23,7 @@ export default class HomePage extends Component {
     this.keys = [lifesData, culturesData, foodsData, travelsData];
     this.subscribe();
   }
+
   htmlTemplate() {
     return `
       <main class="main-wrap">
@@ -64,6 +65,7 @@ export default class HomePage extends Component {
       title: '',
       isLoading: true,
       data: [],
+      page: 1,
     });
   }
 
@@ -74,6 +76,7 @@ export default class HomePage extends Component {
         title: categories[idx],
         isLoading: false,
         data: cache,
+        page: 1,
       });
     });
   }
