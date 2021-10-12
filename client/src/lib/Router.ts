@@ -33,16 +33,9 @@ export default class Router {
     this.setPage({ CurrentPage: Page });
   }
 
-  push(el: HTMLElement, pathName: string, query: string = '') {
-    window.onpopstate = (e) => {
-      return this.renderHTML(el, this.routes[location.pathname]);
-    };
-    window.history.pushState(
-      {},
-      pathName,
-      `${location.origin}${pathName}/${query}`
-    );
-    this.renderHTML(el, this.routes[pathName]);
+  push(pathName: string) {
+    history.pushState({}, pathName, `${location.origin}${pathName}`);
+    this.handlePopState();
   }
 
   renderHTML(el: HTMLElement, route: ValueOf<RoutesStore>) {

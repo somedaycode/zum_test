@@ -3,7 +3,7 @@ import { getState } from './lib/observer';
 import { pageStore } from './store/pages';
 import { _ } from './utils/myUtils';
 
-import Header from './components/common/Header';
+import Header from './components/header/Header';
 
 export default class App extends Component {
   constructor($target: HTMLDivElement) {
