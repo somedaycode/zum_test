@@ -21,9 +21,13 @@ export default class DetailPage extends Component {
     const { title, writer, body } = html;
     return `
     <main class="main-wrap">
-      <h2>${title}</h2>
-      <p>${writer}</p>
-      <section>${body}</section>
+      <div class="detail-header">
+        <h2 class="detail-title">${title}</h2>
+        <div class="detail-writer">
+          <span>by ${writer}</span>
+        </div>
+      </div>
+      <section class="detail-body">${body}</section>
     </main>
     `;
   }
