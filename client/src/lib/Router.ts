@@ -21,7 +21,9 @@ export default class Router {
   }
 
   handlePopState() {
-    const { pathname } = location;
+    let { pathname } = location;
+    pathname = pathname === '/' ? pathname : `/${pathname.split('/')[1]}`;
+
     let Page;
     for (const [routePath, component] of Object.entries(this.routes)) {
       if (routePath === pathname) {
@@ -33,8 +35,10 @@ export default class Router {
     this.setPage({ CurrentPage: Page });
   }
 
-  push(pathName: string) {
-    history.pushState({}, pathName, `${location.origin}${pathName}`);
+  push(pathName: string, params: string | null = null) {
+    let url = `${location.origin}${pathName}`;
+    if (params) url += params;
+    history.pushState({}, pathName, url);
     this.handlePopState();
   }
 
