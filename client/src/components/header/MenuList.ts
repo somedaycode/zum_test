@@ -33,7 +33,7 @@ export default class MenuList extends Component {
     const target = e.target as HTMLUListElement;
     if (target.closest('.menu__list')) {
       const path = target.dataset.path;
-      if (path === 'home') router.push(`/`);
+      if (path === 'home') location.replace('/');
       else if (path) router.push(`/${path}`);
     }
   }
