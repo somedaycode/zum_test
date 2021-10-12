@@ -1,16 +1,18 @@
-import ContentsWrap from '@src/components/sub/ContentsWrap';
 import Component from '@src/core/Component';
+import { getState, setState } from '@src/lib/observer';
+
 import { _ } from '@src/utils/myUtils';
+import { request } from '@src/utils/request';
+
 import {
   culturesData,
   foodsData,
-  HubContent,
   lifesData,
   travelsData,
 } from '@src/store/contents';
-import type { ContentsState } from '@src/store/contents';
-import { getState, setState } from '@src/lib/observer';
-import { request } from '@src/utils/request';
+import type { ContentsState, HubContent } from '@src/store/contents';
+
+import ContentsWrap from '@src/components/sub/ContentsWrap';
 
 type StoreKey = {
   culturesData: string;
