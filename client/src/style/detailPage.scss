@@ -1,0 +1,30 @@
+.detail-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  background-color: $detail-header;
+}
+
+.detail-title {
+  font-size: $font-size-l;
+  color: $primary-white;
+}
+
+.detail-writer {
+  padding: $padding-m;
+
+  span {
+    color: $primary-white;
+  }
+}
+
+.detail-body {
+  padding-top: $padding-m;
+  width: 100%;
+
+  img {
+    max-width: 100%;
+  }
+}
