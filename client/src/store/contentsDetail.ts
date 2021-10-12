@@ -2,7 +2,7 @@ import { initState } from '@src/lib/observer';
 
 const contentsDetailData = initState({
   key: 'contentsDetailData',
-  value: '',
+  value: {},
 });
 
 export { contentsDetailData };
