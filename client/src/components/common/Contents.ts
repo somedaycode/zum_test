@@ -19,7 +19,7 @@ export default class Contents extends Component<ContentsState> {
           .map(
             ({ idx, mediaName, title, summaryContent, url, imageUrl }) => `
         <li class="contents-card" tabindex="0" data-id=${idx} data-url=${url}>
-          <img class="contents__img" src=${imageUrl} alt="콘텐츠">
+          <img class="contents__img" src=${imageUrl} loading="lazy" alt="콘텐츠">
           <div class="text-wrap">
             <h3 class="card-title">${title}</h3>
             <p class="card-description">${summaryContent}</p>
