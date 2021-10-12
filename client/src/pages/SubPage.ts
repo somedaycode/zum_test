@@ -58,9 +58,10 @@ export default class SubPage extends Component {
     const { data, page } = this.getCurrentSubPageStore();
 
     if (!page) return;
+    const ContentLists = this.getContentsListByPage(data, page);
     new ContentsWrap($contentsWrap, {
       setContent: this.setStoreContents.bind(this),
-      data,
+      data: ContentLists,
       page,
     });
   }
@@ -75,6 +76,12 @@ export default class SubPage extends Component {
     const currentKey = `${location.pathname.replace('/', '')}Data`;
     const store: StoreKey = { culturesData, foodsData, lifesData, travelsData };
     return store[currentKey];
+  }
+
+  getContentsListByPage(data: HubContent[], page: number) {
+    const initialCount = 12;
+    const count = page === 1 ? initialCount : initialCount + page * 4;
+    return data.filter((_, idx) => idx + 1 <= count);
   }
 
   setStoreContents(page: number) {

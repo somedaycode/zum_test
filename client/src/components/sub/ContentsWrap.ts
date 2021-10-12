@@ -1,8 +1,8 @@
 import Component from '@src/core/Component';
-import { getState, setState } from '@src/lib/observer';
-import { HubContent } from '@src/store/contents';
 import { _ } from '@src/utils/myUtils';
-import Contents from '../common/Contents';
+import { HubContent } from '@src/store/contents';
+
+import Contents from '@src/components/common/Contents';
 
 type ContentsWrapProps = {
   page: number;
@@ -42,7 +42,7 @@ export default class ContentsWrap extends Component<ContentsWrapProps> {
 
   getIntersectionObserver() {
     const observerOption = {
-      root: this.$target,
+      root: null,
       rootMargin: '0px',
       threshold: 0.5,
     };
