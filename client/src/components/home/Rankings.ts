@@ -34,6 +34,21 @@ export default class Rankings extends Component {
       }`;
   }
 
+  getRankingListTemplate(rankingList: RankingContent[]) {
+    return rankingList
+      .map(
+        ({ idx, mediaName, title, url }: RankingContent, rank: number) => `
+      <li class="ranking__list" data-idx=${idx} data-url=${url}>
+        <div class="ranking-text-wrap">
+          <h3>${title}</h3>
+          <span class="ranking__span-media">${mediaName}</span>
+          <span class="rank-number">${rank + 1}</span>
+        </div>
+      </li>`
+      )
+      .join('');
+  }
+
   async initializeState() {
     this.loadingRankingList();
     const setRankingList = setState(rankingData);
@@ -50,21 +65,6 @@ export default class Rankings extends Component {
       isLoading: true,
       data: [],
     });
-  }
-
-  getRankingListTemplate(rankingList: RankingContent[]) {
-    return rankingList
-      .map(
-        ({ idx, mediaName, title, url }: RankingContent, rank: number) => `
-      <li class="ranking__list" data-idx=${idx} data-url=${url}>
-        <div class="ranking-text-wrap">
-          <h3>${title}</h3>
-          <span class="ranking__span-media">${mediaName}</span>
-          <span class="rank-number">${rank + 1}</span>
-        </div>
-      </li>`
-      )
-      .join('');
   }
 
   setEvent() {
