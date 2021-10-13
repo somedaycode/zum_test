@@ -66,6 +66,7 @@ export default class Contents extends Component<ContentsState> {
 
     if (isSelected) {
       targetClassList.remove('selected');
+      this.removeInFavorite(contentId);
     } else {
       targetClassList.add('selected');
       this.addInFavorites(contentId);
@@ -98,6 +99,14 @@ export default class Contents extends Component<ContentsState> {
     );
 
     return contents.length > 0 ? true : false;
+  }
+
+  removeInFavorite(contentsId: number) {
+    const items = localStorage.getItem('favorites') as string;
+    const contents = JSON.parse(items).filter(
+      (item: HubContent) => item.idx !== contentsId
+    );
+    this.saveTolocalStorage(contents);
   }
 }
 
