@@ -1,8 +1,5 @@
 import Component from '@src/core/Component';
-import { setState } from '@src/lib/observer';
-
 import { ContentsState, HubContent } from '@src/store/contents';
-
 import { _ } from '@src/utils/myUtils';
 
 import { router } from '../../../index';
