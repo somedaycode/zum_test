@@ -15,7 +15,7 @@ export default class FavoritesPage extends Component {
     const contentsWrap = _.$('.contents-wrap', this.$target);
     const savedContents = localStorage.getItem('favorites');
     if (!savedContents) return;
-    const favoriteContents = JSON.parse(savedContents);
+    const favoriteContents = JSON.parse(savedContents).reverse();
     new Contents(contentsWrap, { title: '즐겨찾기', data: favoriteContents });
   }
 }

@@ -1,6 +1,7 @@
 import Component from '@src/core/Component';
+import { setState } from '@src/lib/observer';
 
-import type { ContentsState, HubContent } from '@src/store/contents';
+import { ContentsState, HubContent } from '@src/store/contents';
 
 import { _ } from '@src/utils/myUtils';
 
@@ -18,7 +19,7 @@ export default class Contents extends Component<ContentsState> {
         ${data
           .map(
             ({ idx, mediaName, title, summaryContent, url, imageUrl }) => `
-        <li class="contents-card" tabindex="0" data-url=${url}>
+        <li class="contents-card" tabindex="0" data-idx=${idx} data-url=${url}>
           <img class="contents__img" src=${imageUrl} loading="lazy" alt="콘텐츠">
           <div class="text-wrap">
             <h3 class="card-title">${title}</h3>
@@ -50,9 +51,11 @@ export default class Contents extends Component<ContentsState> {
     if (target.closest('.favorite-btn')) return;
 
     const targetContents = target.closest('.contents-card') as HTMLLIElement;
+    const targetId = Number(targetContents.dataset.idx);
     const targetUrl = targetContents.dataset.url;
     const originalUrl = 'https://hub.zum.com';
     const url = targetUrl?.replace(originalUrl, '');
+    this.saveTempInlocalStorage(targetId);
     router.push('/detail', url);
   }
 
@@ -79,16 +82,16 @@ export default class Contents extends Component<ContentsState> {
     let items: localStroageItems = localStorage.getItem('favorites');
     if (!items) {
       items = [...contents];
-      this.saveTolocalStorage(items);
+      this.saveTolocalStorage('favorites', items);
     } else {
       const savedItems = JSON.parse(items);
       savedItems.push(...contents);
-      this.saveTolocalStorage(savedItems);
+      this.saveTolocalStorage('favorites', savedItems);
     }
   }
 
-  saveTolocalStorage(content: HubContent[]) {
-    localStorage.setItem('favorites', JSON.stringify(content));
+  saveTolocalStorage(key: string, content: HubContent[]) {
+    localStorage.setItem(key, JSON.stringify(content));
   }
 
   hasContentsInStorage(contentsId: Number) {
@@ -106,7 +109,13 @@ export default class Contents extends Component<ContentsState> {
     const contents = JSON.parse(items).filter(
       (item: HubContent) => item.idx !== contentsId
     );
-    this.saveTolocalStorage(contents);
+    this.saveTolocalStorage('favorites', contents);
+  }
+
+  saveTempInlocalStorage(contentsId: number) {
+    const { data } = this.props;
+    const contents = data.filter((content) => content.idx === contentsId);
+    this.saveTolocalStorage('temp', [...contents]);
   }
 }
 
