@@ -28,3 +28,19 @@
     max-width: 100%;
   }
 }
+
+.detail-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: $padding-s;
+
+  button {
+    width: max-content;
+    height: 2rem;
+    font-weight: $font-weight-base;
+    background: transparent;
+    border: 1px solid $secondary-blue;
+  }
+}
