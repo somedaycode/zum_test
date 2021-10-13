@@ -58,8 +58,8 @@ export default class DetailPage extends Component {
   }
 
   setEvent() {
-    _.on(this.$target, 'click', this.handleClickPrevListBtn);
-    _.on(this.$target, 'click', this.handleClickFavoriteBtn);
+    _.on(this.$target, 'click', this.handleClickPrevListBtn.bind(this));
+    _.on(this.$target, 'click', this.handleClickFavoriteBtn.bind(this));
   }
 
   handleClickPrevListBtn(e: MouseEvent) {
