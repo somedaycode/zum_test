@@ -1,7 +1,6 @@
 .contents-container {
   margin-bottom: $margin-m;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 
@@ -57,6 +56,7 @@
   .card-description {
     margin-bottom: $margin-s;
     width: 100%;
+    min-height: 2rem;
     color: $primary-gray;
   }
 
@@ -72,4 +72,8 @@
     right: 0;
     background: transparent;
   }
+}
+
+.selected {
+  font-weight: 900;
 }

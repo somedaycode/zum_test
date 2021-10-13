@@ -1,10 +1,10 @@
 import Component from '@src/core/Component';
-import type { ContentsState } from '@src/store/contents';
+
+import type { ContentsState, HubContent } from '@src/store/contents';
+
 import { _ } from '@src/utils/myUtils';
 
 import { router } from '../../../index';
-
-//<i class="fas fa-heart"></i> solid
 
 export default class Contents extends Component<ContentsState> {
   htmlTemplate() {
@@ -18,14 +18,16 @@ export default class Contents extends Component<ContentsState> {
         ${data
           .map(
             ({ idx, mediaName, title, summaryContent, url, imageUrl }) => `
-        <li class="contents-card" tabindex="0" data-id=${idx} data-url=${url}>
+        <li class="contents-card" tabindex="0" data-url=${url}>
           <img class="contents__img" src=${imageUrl} loading="lazy" alt="콘텐츠">
           <div class="text-wrap">
             <h3 class="card-title">${title}</h3>
             <p class="card-description">${summaryContent}</p>
             <span class="card-media">${mediaName}<span>
             <button class="favorite-btn" aria-label="즐겨찾기">
-              <i class="far fa-heart fa-2x"></i>
+              <i class="far fa-heart fa-2x ${
+                this.hasContentsInStorage(idx) ? 'selected' : ''
+              }" data-id=${idx}></i>
             </button>
           </div>
         </li>
@@ -39,11 +41,13 @@ export default class Contents extends Component<ContentsState> {
 
   setEvent() {
     _.on(this.$target, 'click', this.handleClickContents.bind(this));
+    _.on(this.$target, 'click', this.handleClickFavoriteIcon.bind(this));
   }
 
   handleClickContents(e: MouseEvent) {
     const target = e.target as HTMLLIElement;
     if (!target.closest('.contents-card')) return;
+    if (target.closest('.favorite-btn')) return;
 
     const targetContents = target.closest('.contents-card') as HTMLLIElement;
     const targetUrl = targetContents.dataset.url;
@@ -51,4 +55,59 @@ export default class Contents extends Component<ContentsState> {
     const url = targetUrl?.replace(originalUrl, '');
     router.push('/detail', url);
   }
+
+  handleClickFavoriteIcon(e: MouseEvent) {
+    const target = e.target as HTMLElement;
+    if (!target.closest('.fa-heart')) return;
+
+    const targetClassList = target.classList;
+    const isSelected = targetClassList.contains('selected');
+    const contentId = Number(target.dataset.id);
+
+    if (isSelected) {
+      targetClassList.remove('selected');
+      this.removeInFavorite(contentId);
+    } else {
+      targetClassList.add('selected');
+      this.addInFavorites(contentId);
+    }
+  }
+
+  addInFavorites(contentsId: number) {
+    const { data } = this.props;
+    const contents = data.filter((content) => content.idx === contentsId);
+    let items: localStroageItems = localStorage.getItem('favorites');
+    if (!items) {
+      items = [...contents];
+      this.saveTolocalStorage(items);
+    } else {
+      const savedItems = JSON.parse(items);
+      savedItems.push(...contents);
+      this.saveTolocalStorage(savedItems);
+    }
+  }
+
+  saveTolocalStorage(content: HubContent[]) {
+    localStorage.setItem('favorites', JSON.stringify(content));
+  }
+
+  hasContentsInStorage(contentsId: Number) {
+    let items: localStroageItems = localStorage.getItem('favorites');
+    if (!items) return false;
+    const contents = JSON.parse(items).filter(
+      (item: HubContent) => item.idx === contentsId
+    );
+
+    return contents.length > 0 ? true : false;
+  }
+
+  removeInFavorite(contentsId: number) {
+    const items = localStorage.getItem('favorites') as string;
+    const contents = JSON.parse(items).filter(
+      (item: HubContent) => item.idx !== contentsId
+    );
+    this.saveTolocalStorage(contents);
+  }
 }
+
+type localStroageItems = string | HubContent[] | null;
