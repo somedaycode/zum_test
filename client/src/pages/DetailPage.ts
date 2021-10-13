@@ -76,9 +76,8 @@ export default class DetailPage extends Component {
 
   addIntoFavoritesStore() {
     const currentContents = JSON.parse(localStorage.getItem('temp') as string);
-    const savedContents = JSON.parse(
-      localStorage.getItem('favorites') as string
-    );
+    const savedContents =
+      JSON.parse(localStorage.getItem('favorites') as string) || [];
     const contentsList = [...savedContents, ...currentContents];
     localStorage.setItem('favorites', JSON.stringify(contentsList));
     alert('즐겨찾기에 등록되었습니다.');
