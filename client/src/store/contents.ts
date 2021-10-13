@@ -19,7 +19,7 @@ export type HubContent = {
 export type HomeContents = HubContent[];
 
 const lifesData = initState({
-  key: 'lifeData',
+  key: 'lifesData',
   value: { isLoading: true, title: '라이프', data: [], page: 1 },
 });
 
@@ -29,12 +29,12 @@ const culturesData = initState({
 });
 
 const foodsData = initState({
-  key: 'foodData',
+  key: 'foodsData',
   value: { isLoading: true, title: '푸드', data: [], page: 1 },
 });
 
 const travelsData = initState({
-  key: 'travelData',
+  key: 'travelsData',
   value: { isLoading: true, title: '여행', data: [], page: 1 },
 });
 
